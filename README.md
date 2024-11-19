@@ -264,7 +264,6 @@ Setelah mengatur IP address, kita perlu menambahkan static routing pada Router 1
 ```zsh
 Router1(config)# ip route 192.168.10.0 255.255.255.0 200.200.10.1
 Router1(config)# ip route 192.168.20.0 255.255.255.0 200.200.10.1
-Router1(config)# ip route 192.168.30.0 255.255.255.0 200.200.10.1
 ```
 
 Sama seperti sebelumnya, pastikan semua konfigurasi telah dilakukan dengan benar dan periksa tabel routing:
