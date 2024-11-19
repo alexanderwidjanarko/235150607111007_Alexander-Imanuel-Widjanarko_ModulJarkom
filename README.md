@@ -284,8 +284,9 @@ Router1# show ip route
 
 ### Verifikasi Koneksi
 
-Setelah semua konfigurasi selesai, lakukan verifikasi koneksi antar PC atau perangkat lain yang terhubung ke masing-masing router dengan menggunakan perintah `ping`. Pastikan semua perangkat dapat saling berkomunikasi meskipun berada di jaringan yang berbeda.
+Setelah semua konfigurasi selesai, lakukan verifikasi koneksi antar PC atau perangkat lain yang terhubung ke masing-masing router dengan menggunakan perintah `ping`. Pastikan semua perangkat dapat saling berkomunikasi meskipun berada di jaringan yang berbeda. Contoh: lakukan pengujian dari VLAN HRD (melalui PC2) ke VLAN product (menghubungi PC4 dengan ip 192.68.10.2).
 
 ```zsh
-PC> ping [IP Address Tujuan]
+PC> ping 192.68.10.2
 ```
+![img](./assets/testing.png)
