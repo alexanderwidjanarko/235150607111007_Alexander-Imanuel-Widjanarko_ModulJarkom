@@ -289,3 +289,5 @@ Setelah semua konfigurasi selesai, lakukan verifikasi koneksi antar PC atau pera
 PC> ping 192.68.10.2
 ```
 ![img](./assets/testing.png)
+
+Jika hasil ping menunjukkan reply pada gambar diatas, maka routing telah berhasil dilakukan.
