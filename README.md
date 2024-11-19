@@ -219,16 +219,71 @@ Apabila benar, maka harusnya muncul output seperti gambar dibawah ini
 Setelah itu, buka PC pada salah satu LAN kanan, lalu seharusnya kalian bisa melihat bahwa ip setiap end device sudah otomatis di set ke DHCP apabila benar.
 
 # Routing antar LAN
+#### **1. Konfigurasi Router 0**
 
-Untuk routing antar LAN yang memiliki VLAN, saya berikan kalian kebebasan untuk turut membantu mengembangkan modul ini dengan melakukan fork repository ini, tambahkan section ini lalu bikin pull request dan kalian akan mendapatkan poin keaktifan +2 apabila konten yang kalian buat valid.
-
-Berikut ketentuan tugas bonus ini:
-- Deadline perancangan modul beserta konten section ```Routing antar LAN``` hari ini
-- Berisi langkah beserta screenshot yang jelas
-- Tiap langkah harus dibuat mengikuti kaidah seperti dibawah
+Masuk ke Router 0 dan lakukan konfigurasi pada interface Serial0/0:
 
 ```zsh
-Langkah perintah harus dibungkus dengan code wrap zsh
+Router0> enable
+Router0# configure terminal
+Router0(config)# interface Serial0/0
+Router0(config-if)# ip address 200.200.10.1 255.255.255.0
+Router0(config-if)# no shutdown
+Router0(config-if)# exit
 ```
 
-Yang paling rapih dan jelas akan dimerge ke repository ini dan mendapatkan poin keaktifan +6
+Setelah konfigurasi IP address selesai, kita perlu melakukan static routing pada Router 0:
+
+```zsh
+Router0(config)# ip route 194.68.10.0 255.255.255.0 200.200.10.2
+Router0(config)# ip route 192.68.20.0 255.255.255.0 200.200.10.2
+```
+
+Pastikan semua konfigurasi telah dilakukan dengan benar dan periksa tabel routing untuk memastikan rute telah ditambahkan:
+
+```zsh
+Router0# show ip route
+```
+
+#### **2. Konfigurasi Router 1**
+
+Selanjutnya, masuk ke Router 1 dan lakukan konfigurasi pada interface Serial0/0:
+
+```zsh
+Router1> enable
+Router1# configure terminal
+Router1(config)# interface Serial0/0
+Router1(config-if)# ip address 200.200.10.2 255.255.255.0
+Router1(config-if)# no shutdown
+Router1(config-if)# exit
+```
+
+Setelah mengatur IP address, kita perlu menambahkan static routing pada Router 1:
+
+```zsh
+Router1(config)# ip route 192.168.10.0 255.255.255.0 200.200.10.1
+Router1(config)# ip route 192.168.20.0 255.255.255.0 200.200.10.1
+Router1(config)# ip route 192.168.30.0 255.255.255.0 200.200.10.1
+```
+
+Sama seperti sebelumnya, pastikan semua konfigurasi telah dilakukan dengan benar dan periksa tabel routing:
+
+```zsh
+Router1# show ip route
+```
+
+### Penjelasan Konfigurasi
+
+- **Interface Serial**: Interface Serial digunakan untuk menghubungkan kedua router secara langsung.
+  
+- **IP Addressing**: Setiap router diberikan alamat IP yang unik dalam subnet yang sama untuk memastikan komunikasi yang efektif.
+
+- **Static Routing**: Routing statis ditetapkan untuk mendefinisikan jalur ke jaringan lain secara manual, yang berguna dalam jaringan kecil di mana perubahan topologi jarang terjadi.
+
+### Verifikasi Koneksi
+
+Setelah semua konfigurasi selesai, lakukan verifikasi koneksi antar PC atau perangkat lain yang terhubung ke masing-masing router dengan menggunakan perintah `ping`. Pastikan semua perangkat dapat saling berkomunikasi meskipun berada di jaringan yang berbeda.
+
+```zsh
+PC> ping [IP Address Tujuan]
+```
