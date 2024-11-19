@@ -244,6 +244,7 @@ Pastikan semua konfigurasi telah dilakukan dengan benar dan periksa tabel routin
 ```zsh
 Router0# show ip route
 ```
+![img](./assets/show-iproute0.png)
 
 #### **2. Konfigurasi Router 1**
 
@@ -271,6 +272,7 @@ Sama seperti sebelumnya, pastikan semua konfigurasi telah dilakukan dengan benar
 ```zsh
 Router1# show ip route
 ```
+![img](./assets/show-iproute1.png)
 
 ### Penjelasan Konfigurasi
 
